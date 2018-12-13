@@ -1,11 +1,10 @@
 #!/usr/bin/ruby
 
 require 'nokogiri'
-require 'open-uri'
 require 'mechanize'
 
 if ARGV.empty?
-    puts "Usage: #{__FILE__} \"Artist - Song's Title\""
+    puts "Usage #{__FILE__} \"artis - songs title\""
     exit
 end
 
@@ -18,8 +17,9 @@ mech.user_agent = 'Mozilla/5.0 (Windows NT 5.1; rv:7.0.1) Gecko/20100101 Firefox
 
 mech.get(uri)
 doc = Nokogiri::HTML(mech.page.body)
-doc.css('li.b_algo a').each{|link| links.append(link['href'])}
-doc = Nokogiri::HTML(open(links[0]).read) #open the first link
+doc.css('li.b_algo a').each{|link| links.append(link['href'])} #extract all links
+mech.get(links[0])  #open the first link
+doc = Nokogiri::HTML(mech.page.body)
 doc.css('p').each {|x| data << x.content} #extract data between elements
 
 puts data[0]
