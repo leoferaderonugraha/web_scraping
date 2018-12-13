@@ -5,7 +5,7 @@ require 'open-uri'
 require 'mechanize'
 
 if ARGV.empty?
-    puts "Usage #{__FILE__} \"artis - songs title\""
+    puts "Usage: #{__FILE__} \"Artist - Song's Title\""
     exit
 end
 
