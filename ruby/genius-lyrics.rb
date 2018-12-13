@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'mechanize'
 
 if ARGV.empty?
-    puts "Usage #{__FILE__} \"artis - songs title\""
+    puts "Usage #{__FILE__} \"Artist - Songs Title\""
     exit
 end
 
@@ -19,7 +19,7 @@ mech.get(uri)
 doc = Nokogiri::HTML(mech.page.body)
 doc.css('li.b_algo a').each{|link| links.append(link['href'])} #extract all links
 mech.get(links[0])  #open the first link
-doc = Nokogiri::HTML(mech.page.body)
+doc = Nokogiri::HTML(mech.page.body) #parse
 doc.css('p').each {|x| data << x.content} #extract data between elements
 
 puts data[0]
